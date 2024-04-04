@@ -83,7 +83,7 @@ const CalError = () =>{
  * @param {function}
  */
 const CaclStart = () =>{
-  if(Amount.value <= 0 || Amount.value.match(/^[^\x01-\x7E\uFF61-\uFF9F]+$/)){
+  if(Amount.value <= 0 || isNaN(Amount.value)){
     CalError();
   } else{
     AmountModule();
@@ -95,7 +95,7 @@ const CaclStart = () =>{
  * @param {function}
  */
 const onBlur = () =>{
-  if(Amount.value <= 0 || Amount.value.match(/^[^\x01-\x7E\uFF61-\uFF9F]+$/)){
+  if(Amount.value <= 0 || isNaN(Amount.value)){
     // AmountReset();
     AmoutError.value.classList.remove('hidden');
   } else {
@@ -128,6 +128,9 @@ const onBlur = () =>{
     <p class="text-center leading-loose mt-4">スタートの貯金額（半角数字）を<br class="block md:hidden">入力してください。<br>毎週の貯金額と52週分の貯金額の<br class="block md:hidden">合計を算出します。</p>
     <div class="-mr-2 text-center mt-4">
       <input 
+      type="text"
+      pattern="^[1-9][0-9]*$"
+      inputmode="numeric"
       v-model="Amount" 
       @blur="onBlur" 
       class="p-2 rounded-md border-2 border-gray-600"><span class="pl-2">円</span>
